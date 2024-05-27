@@ -76,15 +76,15 @@ public class Main {
         }
 
         // Create a ModelSplitVote object
-        ArrayList<ModelBase> modelSplits = new ArrayList<>();
-        ModelSplitVote modelSplitVote = new ModelSplitVote(votingEnsemble);
-        modelSplits.add(modelSplitVote);
-        for (Classifier classifier : classifiers) {
-            ModelBase model = new ModelSplit(AbstractClassifier.makeCopy(classifier));
-            modelSplits.add(model);
-        }
-
-        models.add(votingEnsemble);
+//        ArrayList<ModelBase> modelSplits = new ArrayList<>();
+//        ModelSplitVote modelSplitVote = new ModelSplitVote(votingEnsemble);
+//        modelSplits.add(modelSplitVote);
+//        for (Classifier classifier : classifiers) {
+//            ModelBase model = new ModelSplit(AbstractClassifier.makeCopy(classifier));
+//            modelSplits.add(model);
+//        }
+//
+//        models.add(votingEnsemble);
 
         Evaluator evaluator;
         HashMap<String, Integer> params = new HashMap<>();
@@ -104,15 +104,15 @@ public class Main {
             System.out.println("---------------------------------");
         }
 
-        for (ModelBase model : modelSplits) {
-            System.out.println("Evaluate using" + model.modelName());
-            evaluator = new Evaluator();
-            evaluator.k_folds_validation(model, data, 10);
-            Random random = new Random(507);
-            Smote smote = new Smote(params, 5, "Euclidean", random);
-            evaluator.k_folds_validation(model, data, 10, smote);
-            System.out.println("---------------------------------");
-        }
+//        for (ModelBase model : modelSplits) {
+//            System.out.println("Evaluate using" + model.modelName());
+//            evaluator = new Evaluator();
+//            evaluator.k_folds_validation(model, data, 10);
+//            Random random = new Random(507);
+//            Smote smote = new Smote(params, 5, "Euclidean", random);
+//            evaluator.k_folds_validation(model, data, 10, smote);
+//            System.out.println("---------------------------------");
+//        }
 
         for (ModelBase model : models) {
             System.out.println("Evaluate using" + model.modelName());
@@ -125,15 +125,15 @@ public class Main {
         }
 
 
-        for (ModelBase model : modelSplits) {
-            System.out.println("Evaluate using" + model.modelName());
-            evaluator = new Evaluator();
-            evaluator.n_times_validation(model, data, 10);
-            Random random = new Random(507);
-            Smote smote = new Smote(params, 5, "Euclidean", random);
-            evaluator.n_times_validation(model, data, 10, smote);
-            System.out.println("---------------------------------");
-        }
+//        for (ModelBase model : modelSplits) {
+//            System.out.println("Evaluate using" + model.modelName());
+//            evaluator = new Evaluator();
+//            evaluator.n_times_validation(model, data, 10);
+//            Random random = new Random(507);
+//            Smote smote = new Smote(params, 5, "Euclidean", random);
+//            evaluator.n_times_validation(model, data, 10, smote);
+//            System.out.println("---------------------------------");
+//        }
 
     }
 }
