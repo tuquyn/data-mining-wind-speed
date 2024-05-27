@@ -1,5 +1,6 @@
 package Processing;
 
+import weka.core.Attribute;
 import weka.core.Instances;
 import weka.core.Instance;
 import weka.core.converters.ArffSaver;
@@ -14,20 +15,49 @@ import weka.filters.unsupervised.attribute.StringToNominal;
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Random;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+import static java.lang.System.out;
 
 
 public class DataProcess {
     public DataProcess() {
     }
 
+    public static void SummarizeData(Instances data) throws Exception {
+        out.println("Total number of attributes: " + data.numAttributes());
+        Enumeration total_attributes = data.enumerateAttributes();
+        while (total_attributes.hasMoreElements()) {
+            Attribute attribute = (Attribute) total_attributes.nextElement();
+            out.println(attribute);
+        }
+        out.println("Total number of instances: " + data.numInstances());
+        out.println("1st Index\n" + data.firstInstance());
+    }
+
+    public static Instances PreProcess(String data_path) throws Exception {
+        Instances data = read_csv_dataset("dataset/wind_dataset_new.csv");
+        DataProcess.save_csv2arff("dataset/wind_dataset_new.csv", "dataset/wind_dataset_original.arff");
+        data = removeColumn(data, 0); // remove DATE attributes
+        data = fixMissingValues(data);
+        save_instances2arff(data, "dataset/wind_dataset_pre_processed.arff");
+        data.setClassIndex(0);
+        data.randomize(new Random(507));
+        data = normalize(data);
+
+        return data;
+    }
+
     public static Instances read_arff_dataset(String data_path) throws Exception {
 
         return new DataSource(data_path).getDataSet();
     }
+
+
 
     public static Instances read_csv_dataset(String data_path) throws Exception {
         CSVLoader loader = new CSVLoader();
@@ -67,44 +97,6 @@ public class DataProcess {
         return newData;
     }
     public static Instances fixMissingValues(Instances data) {
-//        for (int att_idx = 0; att_idx < data.numAttributes(); att_idx++) {
-//            if (att_idx == data.classIndex()) continue;
-////            if (!data.attribute(att_idx).isNumeric()) continue;
-//            ArrayList<Double> arrayList = new ArrayList<>();
-//            HashMap<String, Integer> occur = new HashMap<>();
-//            for (Instance instance : data) {
-//                if (instance.isMissing(att_idx)) continue;
-//                arrayList.add(instance.value(att_idx));
-//                String temp = String.valueOf(instance.value(att_idx));
-//                if (!occur.containsKey(temp)) occur.put(temp, 0);
-//                occur.put(temp, occur.get(temp) + 1);
-//            }
-//
-//            double sum = 0;
-//            for (Double val : arrayList)
-//                sum += val;
-//            double mean = sum / arrayList.size();
-//            DecimalFormat df = new DecimalFormat("#.##");
-//            double roundedMean = Double.parseDouble(df.format(mean));
-//
-//            double mode = 0, max_occur = -1;
-//            for (String _value : occur.keySet()) {
-//                if (occur.get(_value) > max_occur) {
-//                    max_occur = occur.get(_value);
-//                    mode = Double.parseDouble(_value);
-//                }
-//            }
-//
-//            for (Instance instance : data) {
-//                if (instance.isMissing(att_idx)) {
-//                    if (false) // numeric dataset
-//                        instance.setValue(att_idx, mode);
-//                    else
-//                        instance.setValue(att_idx, roundedMean);
-//                }
-//            }
-//
-//        }
         for (int att_idx = 0; att_idx < data.numAttributes(); att_idx++) {
             if (att_idx == data.classIndex()) continue;
             ArrayList<Double> arrayList = new ArrayList<>();

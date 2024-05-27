@@ -6,12 +6,9 @@ import weka.classifiers.AbstractClassifier;
 import weka.classifiers.Classifier;
 import weka.classifiers.rules.ZeroR;
 import weka.classifiers.trees.RandomForest;
-import weka.core.Attribute;
 import weka.core.Instances;
 import weka.classifiers.functions.MultilayerPerceptron;
 import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.Random;
 
 import weka.classifiers.functions.SimpleLinearRegression;
 import weka.classifiers.functions.SMOreg;
@@ -23,21 +20,10 @@ import static java.lang.System.out;
 public class Main {
     public static void main(String[] args) throws Exception {
 
-        Instances data = DataProcess.read_arff_dataset("dataset/wind_data.arff");
+        Instances data = DataProcess.PreProcess("dataset/wind_dataset_new.csv");
 
-        out.println("Total number of attributes: " + data.numAttributes());
-        Enumeration total_attributes = data.enumerateAttributes();
-        while (total_attributes.hasMoreElements()) {
-            Attribute attribute = (Attribute) total_attributes.nextElement();
-            out.println(attribute);
-        }
-        out.println("Total number of instances: " + data.numInstances());
-        out.println("1st Index\n" + data.firstInstance());
-        data.setClassIndex(0);
-        data.randomize(new Random(507));
-        data = DataProcess.normalize(data);
-
-        test(data);
+        DataProcess.SummarizeData(data);
+        evaluate_models(data);
 
     }
 
@@ -63,7 +49,7 @@ public class Main {
         return classifiers;
     }
 
-    public static void test(Instances data) throws Exception {
+    public static void evaluate_models(Instances data) throws Exception {
         data.setClassIndex(0);
 
         ArrayList<Classifier> classifiers = getClassifiers();

@@ -64,9 +64,9 @@ public class Evaluator {
 
             Instances testData = trainTestSplit.test;
 
-            out.println("Analyzing train in test " + test_time + " of " + n_times + " tests");
+            out.println("Analyzing train in evaluate_models " + test_time + " of " + n_times + " tests");
             DataProcess.analyze_data(trainData);
-            out.println("Analyzing test in test " + test_time + " of " + n_times + " tests");
+            out.println("Analyzing evaluate_models in evaluate_models " + test_time + " of " + n_times + " tests");
             DataProcess.analyze_data(testData);
 
             copy_model.buildClassifier(trainData);
@@ -102,8 +102,6 @@ public class Evaluator {
             try {
                 double predicted = model.classifyInstance(instance);
                 double actual = instance.classValue();
-                out.println("Predicted value "+predicted);
-                out.println("Actual value " + actual);
                 mse += Math.pow(predicted - actual, 2);
             } catch (Exception e) {
                 e.printStackTrace();
