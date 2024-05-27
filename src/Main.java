@@ -19,6 +19,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+import weka.classifiers.functions.LinearRegression;
+import weka.classifiers.functions.SimpleLinearRegression;
+import weka.classifiers.functions.SMOreg;
+import weka.classifiers.functions.SimpleLogistic;
+
+import static java.lang.System.out;
+
 public class Main {
     public static void main(String[] args) throws Exception {
 //        DataProcess.save_csv2arff("dataset/wind_dataset.csv", "dataset/wind_dataset.arff");
@@ -30,10 +37,10 @@ public class Main {
 
         Instances data = DataProcess.read_arff_dataset("dataset/wind_data.arff");
 
-        System.out.println(data.firstInstance());
+        out.println(data.firstInstance());
         // Print columns name and index
         for (int i = 0; i < data.numAttributes(); i++)
-            System.out.println(i + " " + data.attribute(i).name());
+            out.println(i + " " + data.attribute(i).name());
 
 
         data.setClassIndex(0);
@@ -45,27 +52,23 @@ public class Main {
     }
 
     public static void test(Instances data) throws Exception {
-        OneR oner = new OneR();
-        RandomForest randomForest = new RandomForest();
-        RandomTree randomTree = new RandomTree();
-        NaiveBayes naiveBayes = new NaiveBayes();
-        J48 j48 = new J48();
-        SMO smo = new SMO();
+        out.println(data.firstInstance());
+        data.setClassIndex(0);
+
+
         MultilayerPerceptron multilayerPerceptron = new MultilayerPerceptron();
-        Logistic logistic = new Logistic();
+        SimpleLinearRegression linearRegression = new SimpleLinearRegression();
+        SMOreg smoreg = new SMOreg();
+        SimpleLogistic simpleLogistic = new SimpleLogistic();
 
         ArrayList<Classifier> classifiers = new ArrayList<>();
         // Create a VotingEnsemble model
         VotingEnsemble votingEnsemble = new VotingEnsemble(classifiers, 4);
 
-//        classifiers.add(oner);
-        classifiers.add(randomForest);
-        classifiers.add(randomTree);
-        classifiers.add(naiveBayes);
-        classifiers.add(j48);
-        classifiers.add(smo);
-        classifiers.add(logistic);
         classifiers.add(multilayerPerceptron);
+        classifiers.add(linearRegression);
+        classifiers.add(smoreg);
+//        classifiers.add(simpleLogistic);
 
 
         ArrayList<ModelBase> models = new ArrayList<>();
@@ -94,14 +97,14 @@ public class Main {
         params.put("0", 540);
 
         for (ModelBase model : models) {
-            System.out.println("Evaluate using" + model.modelName());
+            out.println("Evaluate using" + model.modelName());
             evaluator = new Evaluator();
             evaluator.k_folds_validation(model, data, 5);
-            Random random = new Random(507);
+//            Random random = new Random(507);
 
-            Smote smote = new Smote(params, 10, "Euclidean", random);
-            evaluator.k_folds_validation(model, data, 10, smote);
-            System.out.println("---------------------------------");
+//            Smote smote = new Smote(params, 10, "Euclidean", random);
+//            evaluator.k_folds_validation(model, data, 10, smote);
+            out.println("---------------------------------");
         }
 
 //        for (ModelBase model : modelSplits) {
@@ -115,13 +118,13 @@ public class Main {
 //        }
 
         for (ModelBase model : models) {
-            System.out.println("Evaluate using" + model.modelName());
+            out.println("Evaluate using" + model.modelName());
             evaluator = new Evaluator();
             evaluator.n_times_validation(model, data, 10);
 
-            Smote smote = new Smote(params, 5, "Euclidean", new Random(507));
-            evaluator.n_times_validation(model, data, 10, smote);
-            System.out.println("---------------------------------");
+//            Smote smote = new Smote(params, 5, "Euclidean", new Random(507));
+//            evaluator.n_times_validation(model, data, 10, smote);
+            out.println("---------------------------------");
         }
 
 
