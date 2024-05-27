@@ -50,28 +50,28 @@ public class Main {
     }
 
     public static void evaluate_models(Instances data) throws Exception {
-        data.setClassIndex(0);
-
+        int k_num = 10;
+        Evaluator evaluator = new Evaluator();
         ArrayList<Classifier> classifiers = getClassifiers();
-
         ArrayList<ModelBase> models = new ArrayList<>();
+
         for (Classifier classifier : classifiers) {
 
             ModelBase model = new WekaModel(AbstractClassifier.makeCopy(classifier));
             models.add(model);
         }
 
-        Evaluator evaluator;
-        int k_num = 10;
-
         out.println(k_num + "-folds Validation");
         out.println("---------------------------------");
 
         for (ModelBase model : models) {
+            long start_time = System.currentTimeMillis();
             out.println("---------------------------------");
             out.println("Algorithm: " + model.modelName());
-            evaluator = new Evaluator();
             evaluator.k_folds_validation(model, data, k_num);
+            long end_time = System.currentTimeMillis();
+            long elapsed_time = end_time - start_time;
+            out.println("Total run time: " + elapsed_time + " ms");
         }
     }
 }
