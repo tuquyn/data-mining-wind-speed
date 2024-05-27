@@ -6,6 +6,7 @@ import Utils.Evaluator;
 import weka.classifiers.AbstractClassifier;
 import weka.classifiers.Classifier;
 import weka.classifiers.rules.OneR;
+import weka.classifiers.rules.ZeroR;
 import weka.classifiers.trees.RandomForest;
 import weka.core.Instance;
 import weka.core.Instances;
@@ -23,6 +24,7 @@ import weka.classifiers.functions.LinearRegression;
 import weka.classifiers.functions.SimpleLinearRegression;
 import weka.classifiers.functions.SMOreg;
 import weka.classifiers.functions.SimpleLogistic;
+import weka.classifiers.lazy.IBk;
 
 import static java.lang.System.out;
 
@@ -51,23 +53,31 @@ public class Main {
 
     }
 
-    public static void test(Instances data) throws Exception {
-        out.println(data.firstInstance());
-        data.setClassIndex(0);
-
-
+    private static ArrayList<Classifier> getClassifiers() {
         MultilayerPerceptron multilayerPerceptron = new MultilayerPerceptron();
         SimpleLinearRegression linearRegression = new SimpleLinearRegression();
         SMOreg smoreg = new SMOreg();
         SimpleLogistic simpleLogistic = new SimpleLogistic();
+        ZeroR zeroR = new ZeroR();
+        IBk knn = new IBk(5);
 
         ArrayList<Classifier> classifiers = new ArrayList<>();
         // Create a VotingEnsemble model
         VotingEnsemble votingEnsemble = new VotingEnsemble(classifiers, 4);
 
-        classifiers.add(multilayerPerceptron);
+//        classifiers.add(multilayerPerceptron);
         classifiers.add(linearRegression);
         classifiers.add(smoreg);
+        classifiers.add(zeroR);
+        classifiers.add(knn);
+        return classifiers;
+    }
+
+    public static void test(Instances data) throws Exception {
+        out.println(data.firstInstance());
+        data.setClassIndex(0);
+
+        ArrayList<Classifier> classifiers = getClassifiers();
 //        classifiers.add(simpleLogistic);
 
 
@@ -96,6 +106,7 @@ public class Main {
         params.put("3", 73);
         params.put("0", 540);
 
+        out.println("K-folds Validation");
         for (ModelBase model : models) {
             out.println("Evaluate using" + model.modelName());
             evaluator = new Evaluator();
@@ -116,7 +127,7 @@ public class Main {
 //            evaluator.k_folds_validation(model, data, 10, smote);
 //            System.out.println("---------------------------------");
 //        }
-
+        out.println("N-times Validation");
         for (ModelBase model : models) {
             out.println("Evaluate using" + model.modelName());
             evaluator = new Evaluator();
