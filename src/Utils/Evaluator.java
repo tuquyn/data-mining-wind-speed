@@ -50,41 +50,6 @@ public class Evaluator {
         }
     }
 
-    public double n_times_validation(ModelBase model, Instances data, int n_times) throws Exception {
-        Preprocess preprocess = new Preprocess();
-        return n_times_validation(model, data, n_times, preprocess);
-    }
-
-    public double n_times_validation(ModelBase model, Instances data, int n_times, IPreprocess pre_process) throws Exception {
-
-        double[] mse_accuracy = new double[n_times];
-        double[] mae_accuracy = new double[n_times];
-
-        Random random = new Random(507);
-        for (int test_time = 0; test_time < n_times; test_time++) {
-
-            TrainTestSplit trainTestSplit = new TrainTestSplit(data, 0.7, random);
-            ModelBase copy_model = model.copy();
-
-            Instances trainData = trainTestSplit.train;
-            trainData = pre_process.apply(trainData);
-
-            Instances testData = trainTestSplit.test;
-
-            out.println("Analyzing train in evaluate_models " + test_time + " of " + n_times + " tests");
-            DataProcess.analyze_data(trainData);
-            out.println("Analyzing evaluate_models in evaluate_models " + test_time + " of " + n_times + " tests");
-            DataProcess.analyze_data(testData);
-
-            copy_model.buildClassifier(trainData);
-            mse_accuracy[test_time] = this.MSEvalidation(copy_model, testData);
-            mae_accuracy[test_time] = this.MAEvalidation(copy_model, testData);
-
-        }
-        printInformation(mae_accuracy, n_times, "mae");
-        return printInformation(mse_accuracy, n_times, "mse");
-    }
-
     public double printInformation(double[] accuracy, double folds, String type) {
         double avg_accuracy = 0, bestAccuracy = 0, worstAccuracy = 1;
         for (int i = 0; i < folds; i++) {
