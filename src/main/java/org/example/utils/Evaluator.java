@@ -45,7 +45,7 @@ public class Evaluator {
                 mse_accuracy[fold] = this.MSEvalidation(copy_model, test);
                 mae_accuracy[fold] = this.MAEvalidation(copy_model, test);
             }
-            out.println("Total average model train time: " + train_elapsed_time/folds + " ms");
+            out.println("Total average model train time: " + train_elapsed_time / folds + " ms");
             printInformation(mae_accuracy, folds, "mae");
             printInformation(mse_accuracy, folds, "mse");
 
@@ -53,43 +53,6 @@ public class Evaluator {
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public double n_times_validation(ModelBase model, Instances data, int n_times) throws Exception {
-        Preprocess preprocess = new Preprocess();
-        return n_times_validation(model, data, n_times, preprocess);
-    }
-
-    public double n_times_validation(ModelBase model, Instances data, int n_times, IPreprocess pre_process) throws Exception {
-
-        double[] mse_accuracy = new double[n_times];
-        double[] mae_accuracy = new double[n_times];
-
-
-        Random random = new Random(507);
-        for (int test_time = 0; test_time < n_times; test_time++) {
-
-            TrainTestSplit trainTestSplit = new TrainTestSplit(data, 0.7, random);
-            ModelBase copy_model = model.copy();
-
-            Instances trainData = trainTestSplit.train;
-            trainData = pre_process.apply(trainData);
-
-            Instances testData = trainTestSplit.test;
-
-            out.println("Analyzing train in evaluate_models " + test_time + " of " + n_times + " tests");
-            DataProcess.analyze_data(trainData);
-            out.println("Analyzing evaluate_models in evaluate_models " + test_time + " of " + n_times + " tests");
-            DataProcess.analyze_data(testData);
-
-            copy_model.buildClassifier(trainData);
-            mse_accuracy[test_time] = this.MSEvalidation(copy_model, testData);
-            mae_accuracy[test_time] = this.MAEvalidation(copy_model, testData);
-
-        }
-        printInformation(mae_accuracy, n_times, "mae");
-        SaveResult(model.modelName(), mse_accuracy, mae_accuracy, n_times);
-        return printInformation(mse_accuracy, n_times, "mse");
     }
 
     public double printInformation(double[] accuracy, double folds, String type) {
@@ -102,11 +65,11 @@ public class Evaluator {
             if (accuracy[i] < worstAccuracy) {
                 worstAccuracy = accuracy[i];
             }
-
+            // out.println(type + " loss, fold " + i + ": " + accuracy[i]);
         }
         avg_accuracy /= folds;
 
-        out.println("Average "+ type +" loss: " + avg_accuracy);
+        out.println("Average " + type + " loss: " + avg_accuracy);
         return avg_accuracy;
     }
 
@@ -116,8 +79,6 @@ public class Evaluator {
             try {
                 double predicted = model.classifyInstance(instance);
                 double actual = instance.classValue();
-                out.println("predicted:" + predicted);
-                out.println("actual" + actual);
                 mse += Math.pow(predicted - actual, 2);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -126,6 +87,7 @@ public class Evaluator {
 
         return mse / data.numInstances();
     }
+
 
     public double MAEvalidation(ModelBase model, Instances data) {
         double mae = 0.0;

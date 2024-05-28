@@ -1,11 +1,11 @@
 package org.example.processing;
 
 import weka.core.Attribute;
-import weka.core.Instance;
 import weka.core.Instances;
+import weka.core.Instance;
 import weka.core.converters.ArffSaver;
 import weka.core.converters.CSVLoader;
-import weka.core.converters.ConverterUtils;
+import weka.core.converters.ConverterUtils.DataSource;
 import weka.filters.unsupervised.attribute.NominalToBinary;
 import weka.filters.unsupervised.attribute.NumericToNominal;
 
@@ -20,13 +20,14 @@ import static java.lang.Math.max;
 import static java.lang.Math.min;
 import static java.lang.System.out;
 
+
 public class DataProcess {
     public DataProcess() {
     }
 
     public static void SummarizeData(Instances data) throws Exception {
         out.println("Total number of attributes: " + data.numAttributes());
-        Enumeration total_attributes = data.enumerateAttributes();
+        Enumeration<Attribute> total_attributes = data.enumerateAttributes();
         while (total_attributes.hasMoreElements()) {
             Attribute attribute = (Attribute) total_attributes.nextElement();
             out.println(attribute);
@@ -50,10 +51,8 @@ public class DataProcess {
 
     public static Instances read_arff_dataset(String data_path) throws Exception {
 
-        return new ConverterUtils.DataSource(data_path).getDataSet();
+        return new DataSource(data_path).getDataSet();
     }
-
-
 
     public static Instances read_csv_dataset(String data_path) throws Exception {
         CSVLoader loader = new CSVLoader();
@@ -76,22 +75,26 @@ public class DataProcess {
         saver.setFile(new File(arff_path));
         saver.writeBatch();
     }
+
     public static void save_instances2arff(Instances instances, String arffFilePath) throws Exception {
         ArffSaver saver = new ArffSaver();
         saver.setInstances(instances);
         saver.setFile(new File(arffFilePath));
         saver.writeBatch();
     }
+
     public static Instances removeColumn(Instances data, int index) {
         Instances newData = new Instances(data);
         newData.deleteAttributeAt(index);
         return newData;
     }
+
     public static Instances removeColumn(Instances data, String name) {
         Instances newData = new Instances(data);
         newData.deleteAttributeAt(data.attribute(name).index());
         return newData;
     }
+
     public static Instances fixMissingValues(Instances data) {
         for (int att_idx = 0; att_idx < data.numAttributes(); att_idx++) {
             if (att_idx == data.classIndex()) continue;
@@ -126,6 +129,7 @@ public class DataProcess {
         }
         return data;
     }
+
     public static Instances numericToNominal(Instances data, String column_index) throws Exception {
         NumericToNominal numericToNominal = new NumericToNominal();
         numericToNominal.setAttributeIndices(column_index);
@@ -133,6 +137,7 @@ public class DataProcess {
         data = NominalToBinary.useFilter(data, numericToNominal);
         return data;
     }
+
     public static Instances normalize(Instances data) {
         for (int i = 0 ; i < data.numAttributes() ; i++) {
             if (data.classIndex() == i) {
@@ -154,9 +159,9 @@ public class DataProcess {
                 }
             }
         }
-
         return data;
     }
+
     public static Instances newStandard(Instances data) {
         Instances newData = new Instances(data);
         newData.renameAttributeValue(0, 1, "1");
