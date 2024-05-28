@@ -1,0 +1,195 @@
+otal number of attributes: 8
+@attribute IND numeric
+@attribute RAIN numeric
+@attribute IND.1 numeric
+@attribute T.MAX numeric
+@attribute IND.2 numeric
+@attribute T.MIN numeric
+@attribute T.MIN.G numeric
+Total number of instances: 6574
+1st Index
+13.29,0,0.1,0,7.603717,0,0.389831,-3.023179
+10-folds Validation
+---------------------------------
+---------------------------------        
+Algorithm: RandomTree
+Total average model train time: 31 ms
+mae loss, fold 0: 5.161605291871247
+mae loss, fold 1: 4.973606889564335      
+mae loss, fold 2: 5.0748287510362        
+mae loss, fold 3: 4.692614741641332      
+mae loss, fold 4: 5.061127502634352      
+mae loss, fold 5: 5.053437341451036      
+mae loss, fold 6: 4.973245283889114      
+mae loss, fold 7: 4.774862038012723      
+mae loss, fold 8: 5.031613042969205      
+mae loss, fold 9: 4.8527245053272505     
+Average mae loss: 4.96496653883968       
+mse loss, fold 0: 42.80863690888352      
+mse loss, fold 1: 40.10003146107732      
+mse loss, fold 2: 42.50872928946101      
+mse loss, fold 3: 38.42954160110604      
+mse loss, fold 4: 41.19199791878692      
+mse loss, fold 5: 41.8285370074412       
+mse loss, fold 6: 40.93133897007083      
+mse loss, fold 7: 37.18999923015878      
+mse loss, fold 8: 41.35199512477375      
+mse loss, fold 9: 39.741648249619494     
+Average mse loss: 40.60824557613789      
+Total run time: 346 ms
+---------------------------------        
+Algorithm: MultilayerPerceptron
+Total average model train time: 1066 ms
+mae loss, fold 0: 3.731498625273307
+mae loss, fold 1: 3.8326753140411243     
+mae loss, fold 2: 3.844149788776241      
+mae loss, fold 3: 3.6711206881730747     
+mae loss, fold 4: 3.84055509343506       
+mae loss, fold 5: 4.456011330847897      
+mae loss, fold 6: 4.037549664570924      
+mae loss, fold 7: 3.9863433104348145     
+mae loss, fold 8: 3.9567777171658607     
+mae loss, fold 9: 3.9123363844609407     
+Average mae loss: 3.926901791717925      
+mse loss, fold 0: 21.478597800754198     
+mse loss, fold 1: 22.217587950975503     
+mse loss, fold 2: 22.277503119410948     
+mse loss, fold 3: 22.180540443689374     
+mse loss, fold 4: 24.390747816587446     
+mse loss, fold 5: 34.086356970558974     
+mse loss, fold 6: 26.84423185940242      
+mse loss, fold 7: 26.30864211114519      
+mse loss, fold 8: 25.588688909621414     
+mse loss, fold 9: 26.091396799462565     
+Average mse loss: 25.146429378160803     
+Total run time: 10676 ms
+---------------------------------        
+Algorithm: RandomForest
+Total average model train time: 975 ms
+mae loss, fold 0: 3.6633510572531254
+mae loss, fold 1: 3.581405253674053      
+mae loss, fold 2: 3.7151138458666932     
+mae loss, fold 3: 3.5868791789101167     
+mae loss, fold 4: 3.756996848980447      
+mae loss, fold 5: 3.8621333500408115     
+mae loss, fold 6: 3.667014592503922      
+mae loss, fold 7: 3.6177175878059846     
+mae loss, fold 8: 3.5257647770296927     
+mae loss, fold 9: 3.570304208630667      
+Average mae loss: 3.654668070069551      
+mse loss, fold 0: 20.81725900100042      
+mse loss, fold 1: 20.43580562138621      
+mse loss, fold 2: 22.68777812018406      
+mse loss, fold 3: 21.224748971210865     
+mse loss, fold 4: 22.111349088482903     
+mse loss, fold 5: 24.016795917027004     
+mse loss, fold 6: 22.15517944235369      
+mse loss, fold 7: 20.76362654731403      
+mse loss, fold 8: 20.260612992974355     
+mse loss, fold 9: 21.13456322592907      
+Average mse loss: 21.560771892786263     
+Total run time: 10664 ms
+---------------------------------        
+Algorithm: SimpleLinearRegression        
+Total average model train time: 3 ms
+mae loss, fold 0: 3.8266263282731563
+mae loss, fold 1: 3.967189458666354      
+mae loss, fold 2: 3.943935554706593      
+mae loss, fold 3: 3.7892030683706937     
+mae loss, fold 4: 4.158046255563466      
+mae loss, fold 5: 3.93786616589345       
+mae loss, fold 6: 3.872739236405208      
+mae loss, fold 7: 3.7874766269406996     
+mae loss, fold 8: 3.8162167967541563     
+mae loss, fold 9: 3.759855656860462      
+Average mae loss: 3.8859155148434232     
+mse loss, fold 0: 23.083681769194623     
+mse loss, fold 1: 23.19511926909694      
+mse loss, fold 2: 23.697864841485305     
+mse loss, fold 3: 23.504591590588355     
+mse loss, fold 4: 25.958739285800505     
+mse loss, fold 5: 24.84090370660714      
+mse loss, fold 6: 22.966547277365006     
+mse loss, fold 7: 22.361810816642087     
+mse loss, fold 8: 22.621366958966078     
+mse loss, fold 9: 22.404583690627227     
+Average mse loss: 23.46352092063733      
+Total run time: 37 ms
+---------------------------------        
+Algorithm: SMOreg
+Total average model train time: 9184 ms
+mae loss, fold 0: 3.6820940574340835
+mae loss, fold 1: 3.715769352607053      
+mae loss, fold 2: 3.791447703048048      
+mae loss, fold 3: 3.659120077169046      
+mae loss, fold 4: 3.916305891812012      
+mae loss, fold 5: 3.775514662528468      
+mae loss, fold 6: 3.7290568227648757     
+mae loss, fold 7: 3.6107272693305807     
+mae loss, fold 8: 3.674994751704135      
+mae loss, fold 9: 3.6705545866030778     
+Average mae loss: 3.7225585175001377     
+mse loss, fold 0: 21.836718061403555     
+mse loss, fold 1: 21.53783782470662      
+mse loss, fold 2: 22.86770963910701      
+mse loss, fold 3: 22.38053848068416      
+mse loss, fold 4: 24.131523009633778     
+mse loss, fold 5: 23.917891780674278     
+mse loss, fold 6: 21.99863968400137      
+mse loss, fold 7: 21.271027501893766     
+mse loss, fold 8: 21.504877136390288     
+mse loss, fold 9: 21.346830388662383     
+Average mse loss: 22.27935935071572      
+Total run time: 91851 ms
+---------------------------------        
+Algorithm: ZeroR
+Total average model train time: 0 ms     
+mae loss, fold 0: 3.9201683138405756     
+mae loss, fold 1: 4.080231940171515      
+mae loss, fold 2: 4.079053959074452      
+mae loss, fold 3: 3.9299143120197413     
+mae loss, fold 4: 4.253623751083291      
+mae loss, fold 5: 4.075643795487504      
+mae loss, fold 6: 3.924867833029661      
+mae loss, fold 7: 3.8580945057053864     
+mae loss, fold 8: 3.9847705152118214     
+mae loss, fold 9: 3.8696701555690836     
+Average mae loss: 3.997603908119303      
+mse loss, fold 0: 24.165899081771194     
+mse loss, fold 1: 24.530307607873674     
+mse loss, fold 2: 25.07108129924481      
+mse loss, fold 3: 24.832743970514116     
+mse loss, fold 4: 27.823673037415695     
+mse loss, fold 5: 26.668051550000463     
+mse loss, fold 6: 23.473326853177362     
+mse loss, fold 7: 23.59646067140116      
+mse loss, fold 8: 24.10365493652033      
+mse loss, fold 9: 23.449445047864252     
+Average mse loss: 24.771464405578307     
+Total run time: 10 ms
+---------------------------------        
+Algorithm: IBk
+Total average model train time: 0 ms
+mae loss, fold 0: 3.846556370174914
+mae loss, fold 1: 3.712821048632224      
+mae loss, fold 2: 3.840843019864294      
+mae loss, fold 3: 3.764213272543064      
+mae loss, fold 4: 4.010715927654286      
+mae loss, fold 5: 4.053102467927812      
+mae loss, fold 6: 3.8062851476276163     
+mae loss, fold 7: 3.79837125499226       
+mae loss, fold 8: 3.9005594081210506     
+mae loss, fold 9: 3.7609372146118707     
+Average mae loss: 3.849440513214939      
+mse loss, fold 0: 23.24328611104222      
+mse loss, fold 1: 21.933854492411765     
+mse loss, fold 2: 23.466456343557763     
+mse loss, fold 3: 24.355256436034978     
+mse loss, fold 4: 25.25749515664919      
+mse loss, fold 5: 26.902619727399575     
+mse loss, fold 6: 24.172186375540303     
+mse loss, fold 7: 23.214701795203823     
+mse loss, fold 8: 23.97463939113078      
+mse loss, fold 9: 22.93981436433492      
+Average mse loss: 23.946031019330526     
+Total run time: 2688 ms

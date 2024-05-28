@@ -95,7 +95,7 @@ public class Evaluator {
             if (accuracy[i] < worstAccuracy) {
                 worstAccuracy = accuracy[i];
             }
-
+            // out.println(type + " loss, fold " + i + ": " + accuracy[i]);
         }
         avg_accuracy /= folds;
 
