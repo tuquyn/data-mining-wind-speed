@@ -24,12 +24,12 @@ import static java.lang.System.out;
 
 public class Main {
     public static void main(String[] args) throws Exception {
-//        Instances data = DataProcess.PreProcess("dataset/wind_dataset_new.csv");
-//        DataProcess.SummarizeData(data);
-//        evaluate_models(data);
+        Instances data = DataProcess.PreProcess("dataset/wind_dataset_new.csv");
+        DataProcess.SummarizeData(data);
+        evaluate_models(data);
 
-        // write the evaluation result to files
-//        StoreResultList.getInstance().writeToFile();
+//         write the evaluation result to files
+        StoreResultList.getInstance().writeToFile();
 
         Visualize.generateCharts();
     }
