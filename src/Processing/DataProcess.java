@@ -6,12 +6,8 @@ import weka.core.Instance;
 import weka.core.converters.ArffSaver;
 import weka.core.converters.CSVLoader;
 import weka.core.converters.ConverterUtils.DataSource;
-import weka.filters.Filter;
 import weka.filters.unsupervised.attribute.NominalToBinary;
 import weka.filters.unsupervised.attribute.NumericToNominal;
-import weka.filters.unsupervised.attribute.Remove;
-import weka.filters.unsupervised.attribute.StringToNominal;
-
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -36,7 +32,7 @@ public class DataProcess {
             out.println(attribute);
         }
         out.println("Total number of instances: " + data.numInstances());
-        out.println("1st Index\n" + data.firstInstance());
+        out.println("1st Index sanity check: \n" + data.firstInstance());
     }
 
     public static Instances PreProcess(String data_path) throws Exception {

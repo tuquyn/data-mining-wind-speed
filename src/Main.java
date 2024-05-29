@@ -31,17 +31,17 @@ public class Main {
 
         RandomTree randomTree = new RandomTree();
         RandomForest randomForest = new RandomForest();
+        MultilayerPerceptron multilayerPerceptron = new MultilayerPerceptron();
         SimpleLinearRegression linearRegression = new SimpleLinearRegression();
         SMOreg smoreg = new SMOreg();
         ZeroR zeroR = new ZeroR();
         IBk knn = new IBk(5);
-        MultilayerPerceptron multilayerPerceptron = new MultilayerPerceptron();
 
         ArrayList<Classifier> classifiers = new ArrayList<>();
 
         classifiers.add(randomTree);
-        classifiers.add(multilayerPerceptron);
         classifiers.add(randomForest);
+        classifiers.add(multilayerPerceptron);
         classifiers.add(linearRegression);
         classifiers.add(smoreg);
         classifiers.add(zeroR);
@@ -61,8 +61,8 @@ public class Main {
             models.add(model);
         }
 
-        out.println(k_num + "-folds Validation");
         out.println("---------------------------------");
+        out.println(k_num + "-folds Validation");
 
         for (ModelBase model : models) {
             long start_time = System.currentTimeMillis();
